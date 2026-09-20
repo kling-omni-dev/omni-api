@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kling Omni API — Python client &amp; hosted endpoint</title>
+<meta name="description" content="Python client for the Kling Omni API: reference-driven image generation up to 4K through a hosted endpoint">
+<link rel="canonical" href="https://kling-omni-dev.github.io/omni-api/"><meta name="google-site-verification" content="8NEKdWXBIiAKuN0mqEqYwTB3yB8iIW-_cQmXANbDTs8" /><meta name="msvalidate.01" content="91A75274D586670BEE99EC35A630C098">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there a Kling Omni API?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Kling Omni 3 is available as the hosted model kling/kling-image-o3, and this client wraps that endpoint so you can call it from Python with run()."}}, {"@type": "Question", "name": "How much does the Kling Omni API cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.028 per run through the hosted endpoint, regardless of resolution. Billing is per prediction; there is no subscription or idle GPU cost."}}, {"@type": "Question", "name": "Can I run Kling Omni without a GPU?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. All generation happens on the hosted service. Your code makes HTTPS requests only, so it runs on a laptop, a serverless function or a CI job."}}, {"@type": "Question", "name": "Does this client work with the Kling web app or ComfyUI?", "acceptedAnswer": {"@type": "Answer", "text": "No. It does not log into kling.ai and it is not a ComfyUI node. It talks to the hosted kling/kling-image-o3 endpoint over HTTP. Kling Omni has no open weights, so there is nothing to load locally."}}, {"@type": "Question", "name": "What input formats does it accept?", "acceptedAnswer": {"@type": "Answer", "text": "prompt (text, up to 2,500 characters, referencing images as @Image1, @Image2, ...) and image_urls (a list of up to 10 publicly reachable .jpg/.png/.webp URLs). Optional fields control resolution (1K/2K/4K), single vs series output, image count, aspect ratio and output format."}}, {"@type": "Question", "name": "Is this the official Kling Omni SDK?", "acceptedAnswer": {"@type": "Answer", "text": "No. This is an independent client and is not affiliated with or endorsed by Kuaishou or Kling AI. The official product is at https://kling.ai."}}]}</script>
+<style>
+:root{--ink:#16191d;--muted:#5b6470;--line:#e3e6ea;--accent:#2563eb;--bg:#fff}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+main{max-width:860px;margin:0 auto;padding:48px 20px 80px}h1{font-size:34px;line-height:1.2;margin:0 0 12px}h2{font-size:22px;margin:40px 0 10px}
+.lead{font-size:18px;color:var(--muted)}.cta{display:inline-block;background:var(--accent);color:#fff;padding:12px 22px;border-radius:8px;font-weight:600;text-decoration:none;margin:12px 8px 12px 0}
+.ghost{display:inline-block;border:1px solid var(--line);padding:11px 20px;border-radius:8px;text-decoration:none;color:var(--ink)}
+pre{background:#0f172a;color:#e2e8f0;padding:16px;border-radius:10px;overflow:auto;font-size:14px}code{font-family:ui-monospace,Menlo,monospace}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0}summary{cursor:pointer;font-weight:600}
+footer{margin-top:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+</style></head><body><main>
+<h1>Kling Omni API for Python</h1>
+<p class="lead">Python client for the Kling Omni API: reference-driven image generation up to 4K through a hosted endpoint</p>
+<p><a class="cta" href="https://synexa.ai/explore/kling/kling-image-o3?utm_source=github&utm_medium=ugc&utm_campaign=kling-omni-dev&utm_content=pages-hero&utm_term=tier-a" rel="noopener">Run Kling Omni in the browser →</a> <a class="ghost" href="https://github.com/kling-omni-dev/omni-api">View on GitHub</a></p>
+<h2>Install</h2>
+<pre><code>pip install git+https://github.com/kling-omni-dev/omni-api.git
+export SYNEXA_API_KEY="sk-..."</code></pre>
+<h2>Quickstart</h2>
+<pre><code>import omni_api
+
+output = omni_api.run({
+    "prompt": "A cinematic shot of a lighthouse at dawn, soft fog, warm light",
+    "image_urls": [
+        "https://example.com/input.png"
+    ]
+})
+print(output)</code></pre>
+<h2>Hosted models</h2>
+<ul><li><a href="https://synexa.ai/explore/kling/kling-image-o3?utm_source=github&utm_medium=ugc&utm_campaign=kling-omni-dev&utm_content=pages-models&utm_term=tier-a" rel="noopener">kling/kling-image-o3</a> — Kling Omni 3 generates images from reference pictures with strong subject consistency, up to 4K. <em>($0.028 / run)</em></li></ul>
+<h2>About Kling Omni</h2>
+<p>Kling Omni is Kuaishou's reference-driven image generation model: pass up to ten reference images, refer to them in the prompt as @Image1, @Image2 and so on, and generate single images or a series of 2–9 related images at 1K, 2K or 4K with strong subject consistency. This client calls the hosted kling/kling-image-o3 endpoint from Python with one dependency, supporting blocking runs, polling and webhooks, at $0.028 per run.</p>
+<h2>FAQ</h2>
+<details><summary>Is there a Kling Omni API?</summary><p>Yes. Kling Omni 3 is available as the hosted model kling/kling-image-o3, and this client wraps that endpoint so you can call it from Python with run().</p></details><details><summary>How much does the Kling Omni API cost?</summary><p>$0.028 per run through the hosted endpoint, regardless of resolution. Billing is per prediction; there is no subscription or idle GPU cost.</p></details><details><summary>Can I run Kling Omni without a GPU?</summary><p>Yes. All generation happens on the hosted service. Your code makes HTTPS requests only, so it runs on a laptop, a serverless function or a CI job.</p></details><details><summary>Does this client work with the Kling web app or ComfyUI?</summary><p>No. It does not log into kling.ai and it is not a ComfyUI node. It talks to the hosted kling/kling-image-o3 endpoint over HTTP. Kling Omni has no open weights, so there is nothing to load locally.</p></details><details><summary>What input formats does it accept?</summary><p>prompt (text, up to 2,500 characters, referencing images as @Image1, @Image2, ...) and image_urls (a list of up to 10 publicly reachable .jpg/.png/.webp URLs). Optional fields control resolution (1K/2K/4K), single vs series output, image count, aspect ratio and output format.</p></details><details><summary>Is this the official Kling Omni SDK?</summary><p>No. This is an independent client and is not affiliated with or endorsed by Kuaishou or Kling AI. The official product is at https://kling.ai.</p></details>
+<p><a class="cta" href="https://synexa.ai/explore/kling/kling-image-o3?utm_source=github&utm_medium=ugc&utm_campaign=kling-omni-dev&utm_content=pages-cta&utm_term=tier-a" rel="noopener">Get an API key and run Kling Omni →</a></p>
+<footer>Independent client for the hosted Kling Omni endpoint on Synexa. Not affiliated with the model's authors. MIT licensed.</footer>
+</main></body></html>
